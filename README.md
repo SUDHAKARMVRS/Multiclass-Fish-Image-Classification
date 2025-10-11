@@ -1,6 +1,6 @@
 # 🐟 Multiclass Fish Image Classification using CNN & Transfer Learning
 
-This project focuses on classifying fish species using Convolutional Neural Networks (CNNs) and various pre-trained models such as **VGG16**, **ResNet50**, **MobileNet**, **InceptionV3**, and **EfficientNetB0**.  
+This project focuses on classifying fish species using Convolutional Neural Networks (CNNs) and various pre-trained models such as **VGG16**, **ResNet50**, **MobileNet**, **InceptionV3**, and **Xception**.  
 It also includes a **Streamlit web application** for easy image-based prediction.
 
 ---
@@ -24,7 +24,7 @@ It also includes a **Streamlit web application** for easy image-based prediction
 │       └── Xception_model.h5
 ├── app/
 │   └── app.py              # Streamlit app
-├── requirements.txt
+├── require.txt
 └── README.md
 ```
 
@@ -40,9 +40,8 @@ cd fish-classification
 
 ### Step 2️⃣: Install Dependencies
 ```bash
-pip install -r requirements.txt
+pip install -r require.txt
 ```
-
 ---
 
 ## 🧠 Model Training
@@ -57,7 +56,7 @@ pip install -r requirements.txt
 3. ResNet50
 4. MobileNet
 5. InceptionV3
-6. EfficientNetB0
+6. Xception
 
 ### Fine-tuning
 Each pre-trained model was fine-tuned on the fish dataset.
@@ -78,11 +77,6 @@ Evaluation metrics used:
 - Recall  
 - F1-Score  
 - Confusion Matrix  
-
-Visualization includes:
-- Accuracy vs. Epochs  
-- Loss vs. Epochs  
-
 ---
 
 ## 🚀 Deployment (Streamlit App)
@@ -91,36 +85,17 @@ Visualization includes:
 ```bash
 streamlit run app/app.py
 ```
-
-### Run in Google Colab
-```python
-!pip install streamlit pyngrok localtunnel
-!streamlit run app/app.py & npx localtunnel --port 8501
-```
-
 ---
 
 ## 🖼️ Streamlit App Features
 ✅ Upload fish image  
 ✅ Predict fish species  
 ✅ Display model confidence score  
-✅ Optionally show top-3 predictions  
 
 ---
-
-## 📈 Example Output
-```
-Predicted Class: Salmon
-Confidence: 97.4%
-```
 
 ---
 
 ## 🧾 Author
 **Sudhakar M**  
-📅 Year: 2025
-
 ---
-
-## 🪶 License
-This project is licensed under the **MIT License**.
