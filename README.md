@@ -21,11 +21,9 @@ It also includes a **Streamlit web application** for easy image-based prediction
 │       ├── resnet50_model.h5
 │       ├── mobilenet_model.h5
 │       ├── inceptionv3_model.h5
-│       └── efficientnetb0_model.h5
+│       └── Xception_model.h5
 ├── app/
 │   └── app.py              # Streamlit app
-├── notebooks/
-│   └── training_notebook.ipynb
 ├── requirements.txt
 └── README.md
 ```
