@@ -32,13 +32,7 @@ It also includes a **Streamlit web application** for easy image-based prediction
 
 ## ⚙️ Installation
 
-### Step 1️⃣: Clone the Repository
-```bash
-git clone https://github.com/yourusername/fish-classification.git
-cd fish-classification
-```
-
-### Step 2️⃣: Install Dependencies
+### Step 1️⃣: Install Dependencies
 ```bash
 pip install -r require.txt
 ```
