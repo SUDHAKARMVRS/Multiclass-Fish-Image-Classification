@@ -32,7 +32,7 @@ It also includes a **Streamlit web application** for easy image-based prediction
 
 ## ⚙️ Installation
 
-### Step 1️⃣: Install Dependencies
+### Install Dependencies
 ```bash
 pip install -r require.txt
 ```
