@@ -1,4 +1,4 @@
-::: {align="center"}
+
 # 🐟🎣 **Multiclass Fish Image Classification**
 
 ### **Deep Learning with CNN & Transfer Learning (TensorFlow/Keras)**
@@ -11,7 +11,6 @@ A beautifully designed, production‑ready README for GitHub ✨
 `<img src="https://img.shields.io/badge/TensorFlow-2.20-orange?logo=tensorflow&logoColor=white" />`{=html}
 `<img src="https://img.shields.io/badge/Deep%20Learning-CNN-green?logo=keras&logoColor=white" />`{=html}
 `<img src="https://img.shields.io/badge/Status-Active-success" />`{=html}
-:::
 
 ------------------------------------------------------------------------
 
@@ -179,12 +178,8 @@ print("Predicted Species:", class_names[pred.argmax()])
 
 **Sudhakar M**\
 Deep Learning • Machine Learning • Data Science\
-GitHub: *\[Add your GitHub link\]*
 
 ------------------------------------------------------------------------
 
-::: {align="center"}
-⭐ If you like this project, don't forget to **star the repository**!
-⭐\
-Made with ❤️ using TensorFlow & Keras
-:::
+
+
