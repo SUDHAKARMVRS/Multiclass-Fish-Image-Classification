@@ -21,7 +21,7 @@ It also includes a **Streamlit web application** for easy image-based prediction
 │       ├── resnet50_model.h5
 │       ├── mobilenet_model.h5
 │       ├── inceptionv3_model.h5
-│       └── efficientnetb0_model.h5
+│       └── Xception_model.h5
 ├── app/
 │   └── app.py              # Streamlit app
 ├── notebooks/
@@ -59,7 +59,7 @@ pip install -r requirements.txt
 3. ResNet50
 4. MobileNet
 5. InceptionV3
-6. EfficientNetB0
+6. Xception
 
 ### Fine-tuning
 Each pre-trained model was fine-tuned on the fish dataset.
@@ -110,12 +110,6 @@ streamlit run app/app.py
 
 ---
 
-## 📈 Example Output
-```
-Predicted Class: Salmon
-Confidence: 97.4%
-```
-
 ---
 
 ## 🧾 Author
@@ -123,6 +117,3 @@ Confidence: 97.4%
 📅 Year: 2025
 
 ---
-
-## 🪶 License
-This project is licensed under the **MIT License**.
