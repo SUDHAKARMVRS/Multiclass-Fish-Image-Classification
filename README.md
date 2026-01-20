@@ -1,6 +1,6 @@
 # 🐟 Multiclass Fish Image Classification using CNN & Transfer Learning
 
-This project focuses on classifying fish species using Convolutional Neural Networks (CNNs) and various pre-trained models such as **VGG16**, **ResNet50**, **MobileNet**, **InceptionV3**, and **EfficientNetB0**.  
+This project focuses on classifying fish species using Convolutional Neural Networks (CNNs) and various pre-trained models such as **VGG16**, **ResNet50**, **MobileNet**, **InceptionV3**, and **Xception**.  
 It also includes a **Streamlit web application** for easy image-based prediction.
 
 ---
