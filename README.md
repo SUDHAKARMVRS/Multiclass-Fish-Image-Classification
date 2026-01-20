@@ -12,7 +12,7 @@ It also includes a **Streamlit web application** for easy image-based prediction
 ├── dataset/
 │   ├── train/
 │   ├── test/
-│   └── val/                # optional (if available)
+│   └── val/             
 ├── models/
 │   ├── cnn_model.h5
 │   ├── best_model.h5
@@ -94,12 +94,6 @@ Visualization includes:
 streamlit run app/app.py
 ```
 
-### Run in Google Colab
-```python
-!pip install streamlit pyngrok localtunnel
-!streamlit run app/app.py & npx localtunnel --port 8501
-```
-
 ---
 
 ## 🖼️ Streamlit App Features
@@ -115,5 +109,6 @@ streamlit run app/app.py
 ## 🧾 Author
 **Sudhakar M**  
 📅 Year: 2025
+📧sudhakar.mvrs@gmail.com| 🌐 (https://www.linkedin.com/in/sudhakar-m-657ba787/)
 
 ---
