@@ -1,114 +1,118 @@
-# 🐟 Multiclass Fish Image Classification using CNN & Transfer Learning
+# 🐟 Multiclass Fish Image Classifier
 
-This project focuses on classifying fish species using Convolutional Neural Networks (CNNs) and various pre-trained models such as **VGG16**, **ResNet50**, **MobileNet**, **InceptionV3**, and **Xception**.  
-It also includes a **Streamlit web application** for easy image-based prediction.
+This is a **Deep Learning-based web application** that can classify multiple fish species from an image. The app provides **Top-3 predictions**, **confidence scores**, **fish information**, **nutrition facts**, and **Wikipedia summaries**. Built with **Python, TensorFlow, Keras, and Streamlit**, this project demonstrates **image classification, transfer learning, and interactive dashboard design**.
+
+---
+
+## 🔍 Features
+
+- Upload any fish image (jpg, png, jpeg)  
+- Predict the fish species using pre-trained models  
+- View **Top-3 predictions** with confidence percentages  
+- Explore **fish info** and **nutrition facts**  
+- Read a **Wikipedia summary** of the fish  
+- Interactive and visually appealing **Streamlit dashboard**  
+
+---
+
+## 🛠️ Tech Stack
+
+- **Python 3.x**  
+- **TensorFlow / Keras**  
+- **Streamlit**  
+- **PIL / NumPy / Pandas**  
+- **Wikipedia API**  
+
+**Pre-trained Models Included:**  
+- MobileNet (Best Performing)  
+- InceptionV3  
+- VGG16  
+- ResNet50  
+- Xception  
 
 ---
 
 ## 📁 Project Structure
 
 ```
-📦 Fish_Classification_Project
-├── dataset/
-│   ├── train/
-│   ├── test/
-│   └── val/             
-├── models/
-│   ├── cnn_model.h5
-│   ├── best_model.h5
-│   └── pretrained/
-│       ├── vgg16_model.h5
-│       ├── resnet50_model.h5
-│       ├── mobilenet_model.h5
-│       ├── inceptionv3_model.h5
-│       └── Xception_model.h5
-├── app/
-│   └── app.py              # Streamlit app
-├── notebooks/
-│   └── training_notebook.ipynb
-├── requirements.txt
-└── README.md
+fish-classifier/
+│
+├─ models/               # Pre-trained .h5 models
+│  ├─ MobileNet.h5
+│  ├─ InceptionV3.h5
+│  ├─ VGG16.h5
+│  ├─ ResNet50.h5
+│  └─ Xception.h5
+│
+├─ app.py                # Main Streamlit application
+├─ requirements.txt      # Python dependencies
+├─ README.md
+└─ assets/               # Images, logos, icons (optional)
 ```
 
 ---
 
-## ⚙️ Installation
+## 🚀 How to Run
 
-### Step 1️⃣: Clone the Repository
+1. **Clone the repository**
+
 ```bash
-git clone https://github.com/yourusername/fish-classification.git
-cd fish-classification
+git clone https://github.com/yourusername/fish-classifier.git
+cd fish-classifier
 ```
 
-### Step 2️⃣: Install Dependencies
+2. **Create a virtual environment (optional but recommended)**
+
+```bash
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
+```
+
+3. **Install dependencies**
+
 ```bash
 pip install -r requirements.txt
 ```
 
----
+4. **Run the Streamlit app**
 
-## 🧠 Model Training
-
-### Data Preprocessing & Augmentation
-- Images are **rescaled** to [0,1].
-- Applied **rotation**, **zoom**, and **horizontal flip** for augmentation.
-
-### Models Trained
-1. CNN (custom model built from scratch)
-2. VGG16
-3. ResNet50
-4. MobileNet
-5. InceptionV3
-6. Xception
-
-### Fine-tuning
-Each pre-trained model was fine-tuned on the fish dataset.
-
-### Model Saving
-The model with **highest validation accuracy** is saved as:
 ```bash
-models/best_model.h5
+streamlit run app.py
 ```
 
----
-
-## 📊 Model Evaluation
-
-Evaluation metrics used:
-- Accuracy  
-- Precision  
-- Recall  
-- F1-Score  
-- Confusion Matrix  
-
-Visualization includes:
-- Accuracy vs. Epochs  
-- Loss vs. Epochs  
+5. **Upload an image** and see the predictions and fish details in the dashboard.  
 
 ---
 
-## 🚀 Deployment (Streamlit App)
+## 📊 Model Explainability
 
-### Run Locally
-```bash
-streamlit run app/app.py
-```
-
----
-
-## 🖼️ Streamlit App Features
-✅ Upload fish image  
-✅ Predict fish species  
-✅ Display model confidence score  
-✅ Optionally show top-3 predictions  
+- The **confidence score** represents the probability of the prediction.  
+- **Lower confidence** indicates uncertainty due to factors such as image quality, lighting, or visual similarity between fish species.  
+- Users are encouraged to check **Top-3 predictions** when confidence is low.  
 
 ---
 
+## 🌟 Future Improvements
+
+- Add **more fish species** to increase coverage  
+- Integrate **real-time camera input** for live classification  
+- Enhance **UI/UX** with more interactive visualizations  
+- Add **multi-language support** for fish info  
+
 ---
 
-## 🧾 Author
-**Sudhakar M**  
-📅 Year: 2025
-📧sudhakar.mvrs@gmail.com| 🌐 (https://www.linkedin.com/in/sudhakar-m-657ba787/)
+## 📄 License
+
+This project is licensed under the **MIT License**.  
 
 ---
+
+## 👨‍💻 Author
+
+**Your Name** – [LinkedIn](https://www.linkedin.com/in/yourprofile) | [GitHub](https://github.com/yourusername)
+
+---
+
+**Demo Video:** Add your project demo video link here if available.
+
