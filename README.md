@@ -101,18 +101,15 @@ streamlit run app.py
 - Add **multi-language support** for fish info  
 
 ---
-
-## 📄 License
-
-This project is licensed under the **MIT License**.  
+  
 
 ---
 
 ## 👨‍💻 Author
 
-**Your Name** – [LinkedIn](https://www.linkedin.com/in/yourprofile) | [GitHub](https://github.com/yourusername)
+**Your Name** – [LinkedIn](https://www.linkedin.com/in/sudhakar-m-657ba787/)
 
 ---
 
-**Demo Video:** Add your project demo video link here if available.
+**Demo Video:** (https://www.linkedin.com/posts/sudhakar-m-657ba787_datascience-machinelearning-deeplearning-activity-7420103229302247425-BSUA?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAABKCEOMB652hawyOtWY3dSUOQiLjCTcOG-4)
 
