@@ -101,7 +101,11 @@ streamlit run app.py
 - Add **multi-language support** for fish info  
 
 ---
-  
+## 📷 Snapshot
+<img width="1910" height="999" alt="Dashboard (4)" src="https://github.com/user-attachments/assets/f191e042-4fc7-4681-8850-8c75d0e06fa9" />
+<img width="1913" height="1004" alt="Dashboard (1)" src="https://github.com/user-attachments/assets/c73ed896-c6b9-4fe1-96c0-68000ee216df" />
+<img width="1919" height="1001" alt="Dashboard (2)" src="https://github.com/user-attachments/assets/d6c76b86-64ba-496e-bc07-6bd9972ecbcb" />
+<img width="1916" height="1000" alt="Dashboard (3)" src="https://github.com/user-attachments/assets/56f62733-b497-429d-bc2d-1c6da0386a5a" />
 
 ---
 
