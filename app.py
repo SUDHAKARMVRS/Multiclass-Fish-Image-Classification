@@ -3,6 +3,7 @@ import tensorflow as tf
 from PIL import Image
 import pandas as pd
 import numpy as np
+import plotly.express as px
 import wikipedia
 
 
@@ -127,6 +128,27 @@ def confidence_color(conf):
 # ---------------- UI STYLING ----------------
 st.markdown("""
 <style>
+.glass-glow {
+    font-size: 38px;
+    font-weight: 900;
+    text-align: center;
+    padding: 16px 24px;
+    margin-bottom: 26px;
+    color: #e5e7eb;
+    background: rgba(15, 23, 42, 0.55);
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.45),
+        inset 0 0 12px rgba(56, 189, 248, 0.25);
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<style>
 .neon-glow {
     font-size: 52px;          /* 🔥 BIGGER */
     font-weight: 900;
@@ -237,7 +259,7 @@ st.markdown("""
 
 st.markdown("""
 <div style="text-align:center; margin-bottom:30px;">
-  <div class="neon-glow" style="font-size:56px;">
+  <div class="glass-glow" style="font-size:56px;">
     🐟 Multiclass Fish Image Classifier
   </div>
   <div style="
@@ -246,45 +268,88 @@ st.markdown("""
     margin-top:8px;">
     Deep Learning • CNN • Transfer Learning
   </div>
-</div>
+""", unsafe_allow_html=True)
+st.markdown("""
+<style>
+.gradient-glow {
+    font-size: 34px;
+    font-weight: 800;
+    text-align: center;
+    padding: 14px 20px;
+    margin-bottom: 20px;
+    color: #ffffff;
+    background: #020617;
+    border-radius: 18px;
+    border: 2px solid transparent;
+    background-image:
+        linear-gradient(#020617, #020617),
+        linear-gradient(90deg, #7c3aed, #06b6d4, #22c55e);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+}
+</style>
 """, unsafe_allow_html=True)
 
-st.divider()
-# ---------------- SIDEBAR ----------------
+st.markdown("""
+<style>
+.gradient-text-glow {
+    font-size: 40px;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 28px;
+    background: linear-gradient(90deg, #7c3aed, #06b6d4, #22c55e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow:
+        0 0 12px rgba(124, 58, 237, 0.6),
+        0 0 24px rgba(6, 182, 212, 0.5);
+}
+</style>
+""", unsafe_allow_html=True)
 
-BEST_MODEL_NAME = "MobileNet"
 
+st.markdown("""
+<style>
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 8px rgba(34,211,238,0.5); }
+    50% { box-shadow: 0 0 28px rgba(34,211,238,0.9); }
+    100% { box-shadow: 0 0 8px rgba(34,211,238,0.5); }
+}
 
-selected_model = st.sidebar.selectbox("Choose Model", model_files.keys())
+.pulse-glow {
+    font-size: 34px;
+    font-weight: 800;
+    text-align: center;
+    padding: 14px 20px;
+    margin-bottom: 20px;
+    color: #e0f2fe;
+    background: #020617;
+    border-radius: 16px;
+    animation: pulseGlow 2s infinite;
+}
+</style>
+""", unsafe_allow_html=True)
 
-if selected_model == BEST_MODEL_NAME:
-    st.sidebar.markdown("✅ **This is the Best Model**")
-model = tf.keras.models.load_model(model_files[selected_model], compile=False)
-uploaded_file = st.sidebar.file_uploader("📤 Upload Fish Image", type=["jpg", "png", "jpeg"])
-
-col1, col2,  = st.columns(2)
-with col1:
-    st.success(f"🏆 Best Performing Model: {BEST_MODEL_NAME}")
-with col2:
-    st.success(f"Using Model: {selected_model}")
-# ---------------- PREDICTION ----------------
-prediction = None
-img = None
-
-if uploaded_file:
-    img = Image.open(uploaded_file).resize((224, 224))
-    img_array = np.expand_dims(np.array(img) / 255.0, axis=0)
-    prediction = model.predict(img_array)
-    idx = np.argmax(prediction)
-    confidence = prediction[0][idx] * 100
-    species_name = class_names[idx]
-    species_key = species_name.lower()
-
-    show_top3 = st.sidebar.checkbox("Show Top-3 Predictions", value=True)
-    prediction = model.predict(img_array) if uploaded_file else None
-
-st.divider()
-# ---------------- TOP-3 PREDICTIONS ----------------
+st.markdown(
+    """
+    <style>
+    @keyframes colorchange {
+        0% {color: #ff0000;}
+        25% {color: #ffa500;}
+        50% {color: #00ff00;}
+        75% {color: #00ffff;}
+        100% {color: #ff0000;}
+    }
+    .animated-title {
+        font-size: 36px;
+        font-weight: bold;
+        text-align: center;
+        animation: colorchange 5s infinite;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 st.markdown("""
 <style>
 .neon-glow {
@@ -303,7 +368,50 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown('<div class="neon-glow">🏆 Top-3 Predictions</div>', unsafe_allow_html=True)
+# ---------------- STREAMLIT APP ----------------
+st.set_page_config(page_title="🐟 Image Classifier", layout="wide")
+# ---------------- SIDEBAR ----------------
+
+BEST_MODEL_NAME = "MobileNet"
+
+
+selected_model = st.sidebar.selectbox("Choose Model", model_files.keys())
+
+if selected_model == BEST_MODEL_NAME:
+    st.sidebar.markdown("✅ **This is the Best Model**")
+model = tf.keras.models.load_model(model_files[selected_model], compile=False)
+uploaded_file = st.sidebar.file_uploader("📤 Upload Fish Image", type=["jpg", "png", "jpeg"])
+
+# ---------------- HEADER ----------------
+
+
+st.markdown(f'<div class="animated-title">🏆 Best Performing Model: {BEST_MODEL_NAME}</div>', unsafe_allow_html=True)
+
+st.divider()
+# ---------------- SELECTED MODEL ----------------
+st.markdown(f'<div class="gradient-glow">Selected Model: {selected_model}</div>', unsafe_allow_html=True)
+
+# ---------------- PREDICTION ----------------
+prediction = None
+img = None
+
+if uploaded_file:
+    img = Image.open(uploaded_file).resize((224, 224))
+    img_array = np.expand_dims(np.array(img) / 255.0, axis=0)
+    prediction = model.predict(img_array)
+    idx = np.argmax(prediction)
+    confidence = prediction[0][idx] * 100
+    species_name = class_names[idx]
+    species_key = species_name.lower()
+
+    show_top3 = st.sidebar.checkbox("Show Top-3 Predictions", value=True)
+    prediction = model.predict(img_array) if uploaded_file else None
+
+st.divider()
+# ---------------- TOP-3 PREDICTIONS ----------------
+
+
+st.markdown('<div class="glass-glow">🏆 Top-3 Predictions</div>', unsafe_allow_html=True)
 st.markdown("<br><br>", unsafe_allow_html=True)
 if prediction is not None and show_top3:
 
@@ -328,23 +436,9 @@ if prediction is not None and show_top3:
             </div>
         </div>
         """, unsafe_allow_html=True)
-st.markdown("""
-<div style="
-margin-top:20px;
-padding:12px;
-background:rgba(2,6,23,0.6);
-border-left:4px solid #38bdf8;
-border-radius:8px;
-color:#e5e7eb;
-font-size:15px;
-">
-🧠 <b>Model Explainability Note</b><br><br>
-The confidence scores represent the model’s probability estimates.
-Lower confidence indicates uncertainty due to factors such as
-image quality, lighting conditions, or visual similarity between fish species.
-Users are encouraged to review the Top-3 predictions when confidence is low.
-</div>
-""", unsafe_allow_html=True)
+else:
+        st.info("Upload an image and enable Top-3 Predictions to see results.")
+
 
 # ---------------- LAYOUT ----------------
 st.divider()
@@ -371,7 +465,7 @@ with col2:
         st.markdown(f"""
         <div style="
         background-color:{bg};
-        padding:15px;
+        padding:30px;
         border-radius:10px;
         color:white;
         text-align:center;
@@ -380,7 +474,6 @@ with col2:
         box-shadow:0 0 15px {bg};
         ">
         {species_name}<br>
-        Confidence: {confidence:.2f}%
         </div>
         """, unsafe_allow_html=True)
 
@@ -422,4 +515,101 @@ box-shadow:0 0 15px #38bdf8;
 {"Calories: "+str(nutrition["Calories"])+" kcal<br>Protein: "+nutrition["Protein"]+"<br>Fat: "+nutrition["Fat"] if nutrition else "Not available"}
 </div>
 """, unsafe_allow_html=True)
+
+    else:
+        st.info("Upload an image to info about the fish species")
+
+@st.cache_resource
+def load_all_models(model_files):
+    models = {}
+    for name, path in model_files.items():
+        models[name] = tf.keras.models.load_model(path, compile=False)
+    return models
+
+
+def predict_all_models(models, img_array, class_names):
+    results = []
+    for model_name, model in models.items():
+        preds = model.predict(img_array, verbose=0)
+        idx = np.argmax(preds)
+        results.append({
+            "Model": model_name,
+            "Predicted Class": class_names[idx],
+            "Confidence (%)": round(preds[0][idx] * 100, 2)
+        })
+    return pd.DataFrame(results)
+# ---------------- MULTI-MODEL PREDICTION ----------------
+st.divider()
+all_models = load_all_models(model_files)
+
+st.markdown('<div class="gradient-glow">🧠 Compare Models</div>', unsafe_allow_html=True)
+
+if uploaded_file:
+    compare_df = predict_all_models(all_models, img_array, class_names)
+
+    colA, colB = st.columns([2, 1])
+
+    with colA:
+        st.markdown('<div class="pulse-glow">📊 Prediction Comparison</div>', unsafe_allow_html=True)
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.bar_chart(
+            compare_df.set_index("Model")["Confidence (%)"],
+            color="Confidence (%)",
+            height=420
+        )
+
+
+    with colB:
+        st.markdown('<div class="pulse-glow">Confidence Values</div>', unsafe_allow_html=True)
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.dataframe(
+            compare_df,
+            use_container_width=True
+        )
+
+else:
+    st.info("Upload an image to compare model predictions")
+# ---------------- MODEL UNCERTAINTY ----------------
+st.divider()
+
+def prediction_entropy(probabilities):
+    probs = np.clip(probabilities, 1e-9, 1)
+    return -np.sum(probs * np.log(probs))
+
+entropy_results = []
+
+for model_name, model in all_models.items():
+    preds = model.predict(img_array, verbose=0)[0]
+    entropy = prediction_entropy(preds)
+
+    entropy_results.append({
+        "Model": model_name,
+        "Entropy (Uncertainty)": round(entropy, 4)
+    })
+entropy_df = pd.DataFrame(entropy_results)
+
+colA, colB = st.columns([2, 1])
+with colA:
+    st.markdown('<div class="pulse-glow">🧠 Model Entropy Comparison</div>', unsafe_allow_html=True)
+    fig_entropy = px.bar(
+    entropy_df,
+    x="Model",
+    y="Entropy (Uncertainty)",
+    color="Entropy (Uncertainty)",
+    color_continuous_scale="Inferno",
+    labels={"Entropy (Uncertainty)": "Entropy (Uncertainty)"},
+    height=420
+)
+    st.plotly_chart(fig_entropy, use_container_width=True)
+    st.info("Lower entropy indicates higher confidence in predictions.")
+
+with colB:
+    st.markdown('<div class="pulse-glow">Entropy Values</div>', unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.dataframe(
+        entropy_df,
+        use_container_width=True
+    )
+
+
 
