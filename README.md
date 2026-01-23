@@ -107,7 +107,8 @@ streamlit run app.py
 
 ## 👨‍💻 Author
 
-**Your Name** – [LinkedIn](https://www.linkedin.com/in/sudhakar-m-657ba787/)
+**Sudhakar M**
+[LinkedIn](https://www.linkedin.com/in/sudhakar-m-657ba787/)
 
 ---
 
