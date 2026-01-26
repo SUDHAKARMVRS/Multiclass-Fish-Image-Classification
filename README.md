@@ -47,7 +47,7 @@ fish-classifier/
 ├─ app.py                # Main Streamlit application
 ├─ requirements.txt      # Python dependencies
 ├─ README.md
-└─ assets/               # Images, logos, icons (optional)
+
 ```
 
 ---
