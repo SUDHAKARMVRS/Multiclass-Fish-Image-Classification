@@ -5,10 +5,16 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 import wikipedia
+from sklearn.metrics import classification_report, confusion_matrix
+import seaborn as sns
+import matplotlib.pyplot as plt
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+import os
 
 
 # ---------------- MODEL PATHS ----------------
 model_files = {
+    "CNN Scratch" : r"C:\Users\jaish\OneDrive\Documents\Desktop\Sudhakar\Fish Image Classification\models\cnn_scratch.h5",
     "InceptionV3": r"C:\Users\jaish\OneDrive\Documents\Desktop\Sudhakar\Fish Image Classification\models\InceptionV3.h5",
     "VGG16": r"C:\Users\jaish\OneDrive\Documents\Desktop\Sudhakar\Fish Image Classification\models\VGG16.h5",
     "ResNet50": r"C:\Users\jaish\OneDrive\Documents\Desktop\Sudhakar\Fish Image Classification\models\ResNet50.h5",
@@ -19,7 +25,7 @@ model_files = {
 # ---------------- CLASS NAMES ----------------
 class_names = [
     "Animal Fish",
-    "Bass",
+    "Animal Fish Bass",
     "Black Sea Sprat",
     "Gilt Head Bream",
     "Horse Mackerel",
@@ -34,7 +40,7 @@ class_names = [
 # ---------------- FISH INFO ----------------
 fish_info = {
     "animal fish": "General category for aquatic animals with gills and fins.",
-    "bass": "Bass are freshwater fish known for firm texture and mild flavor.",
+    "animal fish bass": "Bass are freshwater fish known for firm texture and mild flavor.",
     "black sea sprat": "A small oily fish commonly smoked or fried.",
     "gilt head bream": "Popular Mediterranean fish with delicate white flesh.",
     "horse mackerel": "Fast-swimming fish used in Asian and European dishes.",
@@ -53,7 +59,7 @@ nutrition_facts = {
         "Protein": "20g",
         "Fat": "4g"
     },
-    "bass": {
+    "animal fish bass": {
         "Calories": 124,
         "Protein": "23g",
         "Fat": "2.6g"
@@ -126,6 +132,74 @@ def confidence_color(conf):
         return "#FF4500"
 
 # ---------------- UI STYLING ----------------
+
+st.markdown("""
+<style>
+/* ===== OCEAN BACKGROUND ===== */
+.stApp {
+    background:
+        radial-gradient(circle at 20% 20%, rgba(56,189,248,0.18), transparent 40%),
+        radial-gradient(circle at 80% 30%, rgba(124,58,237,0.18), transparent 40%),
+        radial-gradient(circle at 50% 80%, rgba(34,197,94,0.18), transparent 45%),
+        linear-gradient(135deg, #020617, #020617);
+    background-size: 200% 200%;
+    animation: oceanMove 20s ease infinite;
+    overflow: hidden;
+}
+
+@keyframes oceanMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ===== FISH LAYER ===== */
+.fish-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ===== FISH ===== */
+.fish {
+    position: absolute;
+    font-size: 42px;
+    animation-name: swim;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    filter: drop-shadow(0 0 8px rgba(56,189,248,0.8));
+}
+
+@keyframes swim {
+    0%   { transform: translateX(-15vw) translateY(0); }
+    50%  { transform: translateX(50vw) translateY(-25px); }
+    100% { transform: translateX(115vw) translateY(0); }
+}
+
+
+/* Individual fish */
+.fish1 { top: 20%; animation-duration: 22s; font-size: 46px; }
+.fish2 { top: 40%; animation-duration: 30s; font-size: 36px; }
+.fish3 { top: 65%; animation-duration: 26s; font-size: 40px; }
+.fish4 { top: 80%; animation-duration: 34s; font-size: 30px; }
+</style>
+
+<div class="fish-layer">
+    <div class="fish fish1">🐳</div>
+    <div class="fish fish2">🐠</div>
+    <div class="fish fish4">🦈</div>
+    <div class="fish fish2">🐬</div>
+    <div class="fish fish3">🐙</div>
+    <div class="fish fish4">🦑</div>  
+</div>
+""", unsafe_allow_html=True)
+
+
+
 st.markdown("""
 <style>
 .glass-glow {
@@ -260,7 +334,7 @@ st.markdown("""
 st.markdown("""
 <div style="text-align:center; margin-bottom:30px;">
   <div class="glass-glow" style="font-size:56px;">
-    🐟 Multiclass Fish Image Classifier
+    🐠 Multiclass Fish Image Classifier 🦈
   </div>
   <div style="
     font-size:20px;
@@ -368,6 +442,8 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+
+
 # ---------------- STREAMLIT APP ----------------
 st.set_page_config(page_title="🐟 Image Classifier", layout="wide")
 # ---------------- SIDEBAR ----------------
@@ -385,7 +461,7 @@ uploaded_file = st.sidebar.file_uploader("📤 Upload Fish Image", type=["jpg", 
 # ---------------- HEADER ----------------
 
 
-st.markdown(f'<div class="animated-title">🏆 Best Performing Model: {BEST_MODEL_NAME}</div>', unsafe_allow_html=True)
+st.markdown(f'<div class="animated-title">🏆 Best Performing Model:✨{BEST_MODEL_NAME}🔥</div>', unsafe_allow_html=True)
 
 st.divider()
 # ---------------- SELECTED MODEL ----------------
@@ -411,11 +487,11 @@ st.divider()
 # ---------------- TOP-3 PREDICTIONS ----------------
 
 
-st.markdown('<div class="glass-glow">🏆 Top-3 Predictions</div>', unsafe_allow_html=True)
+st.markdown('<div class="glass-glow">⭐ Top-3 Predictions </div>', unsafe_allow_html=True)
 st.markdown("<br><br>", unsafe_allow_html=True)
 if prediction is not None and show_top3:
 
-    medals = ["🥇", "🥈", "🥉"]
+    medals = ["🥇 🐬 ", "🥈 🐟", "🥉🐳"]
     colors = ["#facc15", "#94a3b8", "#fb923c"]  # gold, silver, bronze
 
     top3_idx = np.argsort(prediction[0])[::-1][:3]
@@ -473,7 +549,7 @@ with col2:
         font-weight:bold;
         box-shadow:0 0 15px {bg};
         ">
-        {species_name}<br>
+        🐳{species_name}<br>
         </div>
         """, unsafe_allow_html=True)
 
@@ -508,7 +584,7 @@ font-size:16px;
 color:#e5e7eb;
 box-shadow:0 0 15px #38bdf8;
 ">
-<b>{species_name}</b><br><br>
+<b>🐬{species_name}🐡</b><br><br>
 {info}<br><br>
 <b>📚 Wikipedia</b><br>{wiki}<br><br>
 <b>🍽️ Nutrition (per 100g)</b><br>
@@ -578,38 +654,104 @@ def prediction_entropy(probabilities):
 
 entropy_results = []
 
-for model_name, model in all_models.items():
-    preds = model.predict(img_array, verbose=0)[0]
-    entropy = prediction_entropy(preds)
+if uploaded_file is not None:
+    for model_name, model in all_models.items():
+        preds = model.predict(img_array, verbose=0)[0]
+        entropy = prediction_entropy(preds)
 
-    entropy_results.append({
-        "Model": model_name,
-        "Entropy (Uncertainty)": round(entropy, 4)
-    })
-entropy_df = pd.DataFrame(entropy_results)
+        entropy_results.append({
+            "Model": model_name,
+            "Entropy (Uncertainty)": round(entropy, 4)
+         })
+    entropy_df = pd.DataFrame(entropy_results)
 
-colA, colB = st.columns([2, 1])
-with colA:
-    st.markdown('<div class="pulse-glow">🧠 Model Entropy Comparison</div>', unsafe_allow_html=True)
-    fig_entropy = px.bar(
-    entropy_df,
-    x="Model",
-    y="Entropy (Uncertainty)",
-    color="Entropy (Uncertainty)",
-    color_continuous_scale="Inferno",
-    labels={"Entropy (Uncertainty)": "Entropy (Uncertainty)"},
-    height=420
-)
-    st.plotly_chart(fig_entropy, use_container_width=True)
-    st.info("Lower entropy indicates higher confidence in predictions.")
 
-with colB:
-    st.markdown('<div class="pulse-glow">Entropy Values</div>', unsafe_allow_html=True)
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.dataframe(
+    colA, colB = st.columns([2, 1])
+    with colA:
+        st.markdown('<div class="pulse-glow">🧠 Model Entropy Comparison</div>', unsafe_allow_html=True)
+        fig_entropy = px.bar(
         entropy_df,
-        use_container_width=True
-    )
+        x="Model",
+        y="Entropy (Uncertainty)",
+        color="Entropy (Uncertainty)",
+        color_continuous_scale="Inferno",
+        labels={"Entropy (Uncertainty)": "Entropy (Uncertainty)"},
+        height=420)
+        st.plotly_chart(fig_entropy, use_container_width=True)
+        st.info("Lower entropy indicates higher confidence in predictions.")
 
+    with colB:
+        st.markdown('<div class="pulse-glow">Entropy Values</div>', unsafe_allow_html=True)
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.dataframe(
+        entropy_df,
+        use_container_width=True)
+
+else:
+    st.info("Upload an image to compare model predictions")
+
+
+# Keep val_data as the DirectoryIterator
+datagen = ImageDataGenerator(rescale=1./255, validation_split=0.2)
+val_data = datagen.flow_from_directory(
+    r"C:\Users\jaish\OneDrive\Documents\Desktop\Sudhakar\Fish Image Classification\images.cv_jzk6llhf18tm3k0kyttxz\data\val",
+    target_size=(224,224),
+    batch_size=32,
+    class_mode="categorical",
+    subset="validation",
+    shuffle=False
+)
+
+class_names = list(val_data.class_indices.keys())
+
+
+st.markdown(f'<div class="aura-glow">{selected_model}</div>',unsafe_allow_html=True)
+
+
+colc , cold = st.columns([2, 2])
+
+if uploaded_file is not None:
+    with colc :
+
+        st.markdown('<div class="pulse-glow">📊 Confusion Matrix</div>', unsafe_allow_html=True)
+
+        # Predictions
+        y_true = val_data.classes
+        y_pred = np.argmax(model.predict(val_data), axis=1)
+
+# Confusion Matrix
+        cm = confusion_matrix(y_true, y_pred)
+        fig, ax = plt.subplots(figsize=(4,4))
+        sns.heatmap(cm, annot=True, fmt="d", xticklabels=class_names, yticklabels=class_names, cmap="Blues", ax=ax)
+        ax.set_title(f"Confusion Matrix - {selected_model}")
+        st.pyplot(fig)
+
+
+    with cold:
+        st.markdown('<div class="pulse-glow">📊 Classification Report</div>', unsafe_allow_html=True)
+
+# Load only the chosen model
+        model_path = model_files[selected_model]
+        model = tf.keras.models.load_model(model_path)
+
+
+# Classification Report
+        report = classification_report(y_true, y_pred, target_names=class_names, output_dict=True)
+        st.dataframe(report)
+
+else:
+        st.info("Upload an image to compare model predictions")
+
+
+st.divider()
+# ----------------------------------------------
+# FOOTER
+# ----------------------------------------------
+st.markdown("""
+<div class="footer glow">
+    Built with 💙 & 🧠 using <b>Streamlit</b> | Designed by <b>Sudhakar M</b><br>
+    <small>© 2026 Fish Image Classifier</small>
+</div>
+""", unsafe_allow_html=True)
 
 
