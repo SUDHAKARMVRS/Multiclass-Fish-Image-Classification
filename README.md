@@ -28,7 +28,8 @@ This is a **Deep Learning-based web application** that can classify multiple fis
 - InceptionV3  
 - VGG16  
 - ResNet50  
-- Xception  
+- Xception
+- And CNN Scratch
 
 ---
 
@@ -42,7 +43,8 @@ fish-classifier/
 │  ├─ InceptionV3.h5
 │  ├─ VGG16.h5
 │  ├─ ResNet50.h5
-│  └─ Xception.h5
+│  ├─ Xception.h5
+│  └─ cnnscratch.h5
 │
 ├─ app.py                # Main Streamlit application
 ├─ requirements.txt      # Python dependencies
