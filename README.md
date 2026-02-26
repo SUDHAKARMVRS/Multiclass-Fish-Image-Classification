@@ -74,13 +74,13 @@ venv\Scripts\activate     # Windows
 3. **Install dependencies**
 
 ```bash
-pip install -r requirements.txt
+pip install -r require.txt
 ```
 
 4. **Run the Streamlit app**
 
 ```bash
-streamlit run app.py
+streamlit run stream.py
 ```
 
 5. **Upload an image** and see the predictions and fish details in the dashboard.  
